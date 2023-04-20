@@ -1,0 +1,30 @@
+version: "3"
+services:
+  noz-books-api-web:
+    container_name: noz-books-api-web
+    build: .
+    command: sh -c 'rm -f tmp/pids/server.pid && bundle exec rake db:create && bundle exec rake db:migrate && bundle exec rails s -p 3000 -b 0.0.0.0'
+    volumes:
+      - .:/noz-books-api
+    ports:
+      - "3000:3000"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - noz-books-api-db
+      - noz-books-api-redis
+
+  noz-books-api-db:
+    container_name: noz-books-api-db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  noz-books-api-redis:
+    container_name: noz-books-api-redis
+    image: redis:6.0
