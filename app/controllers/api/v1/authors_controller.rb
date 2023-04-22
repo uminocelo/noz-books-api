@@ -2,20 +2,24 @@ class Api::V1::AuthorsController < ApplicationController
   def index
     @authors = Author.all
     render json: @authors, status: :ok
+  rescue StandardError => e
+    render json: { message: e.message }, status: 500
   end
 
   def create
-    author = Author.new(authors_params)
-    return render json: { message: 'Não foi possivel criar este autor.' }, status: 409 unless author.valid?
+    @author = Author.new(authors_params)
 
-    render json: { message: 'Autor criado com sucesso!' }, status: :created if author.save!
-  rescue StandardError => e
-    render json: e.message, status: 500
+    if @author.save
+      render json: { message: 'Autor criado com sucesso!' }, status: :created
+    else
+      render json: { message: 'Não foi possível criar este autor.' }, status: :unprocessable_entity
+    end
+  rescue StandardError => _e
+    render json: { message: 'Não foi possivel criar este autor.' }, status: 500
   end
 
   def show
     @author = Author.find(params[:id])
-
     render json: @author, status: :ok
   end
 
@@ -31,10 +35,11 @@ class Api::V1::AuthorsController < ApplicationController
   def destroy
     @author = Author.find(params[:id])
     @author.destroy
+    render json: { message: 'Autor excluído com sucesso.' }, status: 204
   rescue ActiveRecord::RecordNotFound => e
     render json: { message: e.message }, status: 404
   rescue StandardError => e
-    render json: e.message, status: 500
+    render json: { message: e.message }, status: 500
   end
 
   private

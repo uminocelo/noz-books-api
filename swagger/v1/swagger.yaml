@@ -1,0 +1,127 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/authors":
+    get:
+      summary: list authors
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create author
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                birthday:
+                  type: string
+                  format: date
+                main_genre:
+                  type: string
+              required:
+              - name
+              - birthday
+              - main_genre
+  "/api/v1/authors/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show author
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update author
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update author
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete author
+      responses:
+        '200':
+          description: successful
+  "/api/v1/books":
+    get:
+      summary: list books
+      responses:
+        '200':
+          description: successful
+  "/api/v1/books/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show book
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/books":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: string
+    post:
+      summary: create book
+      responses:
+        '200':
+          description: successful
+  "/api/v1/authors/{author_id}/books/{id}":
+    parameters:
+    - name: author_id
+      in: path
+      description: author_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    patch:
+      summary: update book
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update book
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete book
+      responses:
+        '200':
+          description: successful
+servers:
+- url: http://localhost:3000
+  description: Local development server

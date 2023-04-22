@@ -28,3 +28,19 @@ services:
   noz-books-api-redis:
     container_name: noz-books-api-redis
     image: redis:6.0
+
+  noz-books-api-test:
+    container_name: noz-books-api-test
+    build: .
+    command: bundle exec rspec
+    volumes:
+      - .:/noz-books-api
+    ports:
+      - "3001:3001"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - RAILS_ENV=test
+    depends_on:
+      - noz-books-api-db
+      - noz-books-api-redis
