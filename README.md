@@ -22,6 +22,33 @@ docker-compose up noz-books-api-web --build
 
 ```
 
+# Tabelas da aplicacao
+
+## Tabela de Authors
+
+| authors    |          |
+|------------|----------|
+| name       | string   |
+| main_genre | string   |
+| birthday   | date     |
+| created_at | datetime |
+| updated_at | datetime |
+
+
+## Tabela de Books
+
+| books            |          |
+|------------------|----------|
+| title            | string   |
+| description      | text     |
+| genre            | string   |
+| publication_date | date     |
+| publisher        | string   |
+| author_id        | bigint   |
+| created_at       | datetime |
+| updated_at       | datetime |
+
+
 # Documentação utilizando SWAGGER
 
 Pode ser encontrada na seguinte rota: `/api-docs`
@@ -54,7 +81,7 @@ E o retorno será assim:
 
 ```
 
-E para realizar suas requisições na aplicação basta adicionar: `Bearer TokenRetornadoNa.RequisicaoAcima` na header de Authorization
+E para realizar suas requisições na aplicação basta adicionar: `Bearer TokenRetornadoNa.RequisicaoAcima` na header de `Authorization`.
 
 # Rotas
 
@@ -75,5 +102,3 @@ Lista de rotas com validação de **Token**:
 - [PUT][PATCH] http://localhost:3000/api/v1/authors/#{author_id}/books/#{book_id}
 - [POST] http://localhost:3000/api/v1/authors
 - [POST] http://localhost:3000/api/v1/authors/#{author_id}/books
-
-
