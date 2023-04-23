@@ -31,7 +31,7 @@ RSpec.describe Api::V1::AuthorsController, type: :controller do
 
       it 'returns an error message' do
         put :update, params: { id: author.to_param, author: invalid_attributes }
-        expect(JSON.parse(response.body)['message']).to eq('Não foi possivel atualizar este autor.')
+        expect(JSON.parse(response.body)['message']).to eq('Unable to update this author.')
       end
     end
   end

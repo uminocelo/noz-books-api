@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post '/auth', to: 'authentication#auth'
+ 
       resources :books, except: %i[create update destroy]
 
       resources :authors do

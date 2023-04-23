@@ -16,10 +16,16 @@ gem 'puma', '~> 5.0'
 gem 'rswag'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
+
+# Use JWT gem for token-based authentication
+gem 'jwt'
+
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

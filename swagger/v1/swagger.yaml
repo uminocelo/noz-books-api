@@ -14,7 +14,7 @@ paths:
       summary: create author
       parameters: []
       responses:
-        '200':
+        '201':
           description: successful
       requestBody:
         content:
@@ -43,23 +43,52 @@ paths:
         type: string
     get:
       summary: show author
+      tags:
+      - Authors
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: successful
     patch:
       summary: update author
+      parameters: []
       responses:
         '200':
           description: successful
-    put:
-      summary: update author
-      responses:
-        '200':
-          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                birthday:
+                  type: string
+                  format: date
+                main_genre:
+                  type: string
+              required:
+              - name
+              - birthday
+              - main_genre
     delete:
       summary: delete author
+      tags:
+      - Authors
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
-        '200':
+        '204':
           description: successful
   "/api/v1/books":
     get:
@@ -77,6 +106,14 @@ paths:
         type: string
     get:
       summary: show book
+      tags:
+      - Books
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: successful
@@ -84,15 +121,42 @@ paths:
     parameters:
     - name: author_id
       in: path
-      description: author_id
+      description: Author id
       required: true
       schema:
         type: string
     post:
       summary: create book
+      tags:
+      - Books
+      parameters:
+      - name: author_id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
-        '200':
+        '201':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                genre:
+                  type: string
+                publication_date:
+                  type: string
+                  format: date
+                publisher:
+                  type: string
+              required:
+              - title
   "/api/v1/authors/{author_id}/books/{id}":
     parameters:
     - name: author_id
@@ -109,18 +173,58 @@ paths:
         type: string
     patch:
       summary: update book
+      tags:
+      - Books
+      parameters:
+      - name: author_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: successful
-    put:
-      summary: update book
-      responses:
-        '200':
-          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                genre:
+                  type: string
+                publication_date:
+                  type: string
+                  format: date
+                publisher:
+                  type: string
+              required:
+              - title
     delete:
       summary: delete book
+      tags:
+      - Author
+      parameters:
+      - name: author_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
-        '200':
+        '204':
           description: successful
 servers:
 - url: http://localhost:3000
